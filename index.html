@@ -1,94 +1,67 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Транспортная навигация Таджикистана</title>
+    <title>Транспортная навигация</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <style>
-        /* Стиль для карты и основного контейнера */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
+        /* Стили для карты и формы */
         #map {
             width: 100%;
-            height: 80vh;
+            height: 600px;
+            margin-top: 10px;
         }
-        #controls {
-            padding: 10px;
-            background-color: #f8f8f8;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-        }
-        #destination-input {
-            padding: 5px;
-            font-size: 16px;
-            width: 200px;
-        }
-        #search-btn {
-            padding: 5px 10px;
-            font-size: 16px;
+        .controls {
+            margin: 10px;
         }
     </style>
 </head>
 <body>
+    <h1>Транспортная навигация Таджикистана</h1>
 
-    <!-- Контейнер с полем ввода для поиска -->
-    <div id="controls">
-        <input type="text" id="destination-input" placeholder="Введите место назначения...">
-        <button id="search-btn">Поиск</button>
+    <div class="controls">
+        <label for="start">Откуда:</label>
+        <input type="text" id="start" placeholder="Введите начальную точку">
+        <label for="end">Куда:</label>
+        <input type="text" id="end" placeholder="Введите конечную точку">
+        <button onclick="findRoute()">Показать маршрут</button>
     </div>
 
-    <!-- Контейнер карты -->
     <div id="map"></div>
 
-    <!-- Подключение скриптов Leaflet -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
-        // Инициализация карты, центрированной на Таджикистане
-        const map = L.map('map').setView([38.861, 71.2761], 7);
+        // Инициализация карты
+        const map = L.map('map').setView([38.861, 71.2761], 7); // Таджикистан
 
-        // Добавление карты OpenStreetMap
+        // Добавление слоя карты от OpenStreetMap
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 18,
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        // Пример данных о достопримечательностях и остановках
-        const pointsOfInterest = [
-            { name: "Национальный музей Таджикистана", coords: [38.5734, 68.7857] },
-            { name: "Парк Рудаки", coords: [38.5804, 68.7941] },
-            { name: "Флагшток Душанбе", coords: [38.5710, 68.7866] },
-            { name: "Остановка Центральная площадь", coords: [38.5764, 68.7926] },
-            { name: "Остановка аэропорт", coords: [38.5454, 68.8233] }
+        // Пример данных: достопримечательности и остановки
+        const places = [
+            { name: "Национальный музей Таджикистана", coords: [38.5598, 68.7870], type: "достопримечательность" },
+            { name: "Парк Рудаки", coords: [38.5735, 68.7840], type: "достопримечательность" },
+            { name: "Остановка Автовокзал Душанбе", coords: [38.5672, 68.7783], type: "остановка" },
+            { name: "Остановка Центральный рынок Худжанда", coords: [40.2895, 69.6193], type: "остановка" }
         ];
 
-        // Добавление маркеров для всех точек интереса
-        pointsOfInterest.forEach(point => {
-            L.marker(point.coords).addTo(map)
-                .bindPopup(<b>${point.name}</b>);
+        // Добавление маркеров для достопримечательностей и остановок
+        places.forEach(place => {
+            const marker = L.marker(place.coords).addTo(map);
+            marker.bindPopup(`<b>${place.name}</b><br>${place.type}`);
         });
 
-        // Функция поиска
-        document.getElementById('search-btn').addEventListener('click', () => {
-            const destination = document.getElementById('destination-input').value.toLowerCase();
-            const point = pointsOfInterest.find(p => p.name.toLowerCase().includes(destination));
-
-            if (point) {
-                // Перемещаемся к найденной точке и открываем всплывающее окно
-                map.setView(point.coords, 14);
-                L.popup()
-                    .setLatLng(point.coords)
-                    .setContent(<b>${point.name}</b>)
-                    .openOn(map);
-            } else {
-                alert("Место не найдено!");
-            }
-        });
+        // Функция для поиска маршрута (упрощенная)
+        function findRoute() {
+            const start = document.getElementById("start").value;
+            const end = document.getElementById("end").value;
+            alert(`Маршрут от ${start} до ${end} еще не реализован, но это место для подключения маршрутизации.`);
+            // Здесь можно будет подключить API для маршрутизации, если оно доступно
+        }
     </script>
 </body>
 </html>
