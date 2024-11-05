@@ -36,3 +36,8 @@ function displayRouteInfo(stop) {
         <p>Доступные маршруты: ${stop.routes.join(', ')}</p>
     `;
 }
+
+// Добавление маркера в Душанбе
+L.marker([38.536, 68.78]).addTo(map)
+    .bindPopup('Душанбе') // Всплывающее окно с названием
+    .openPopup();
