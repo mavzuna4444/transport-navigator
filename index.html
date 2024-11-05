@@ -4,24 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Транспортная навигация</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Подключаем библиотеку Mapbox -->
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js"></script>
-    <link href="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Шапка сайта -->
     <header>
         <h1>Транспортная навигация</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Главная</a></li>
+                <li><a href="#routes">Маршруты</a></li>
+                <li><a href="#stations">Станции</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <div id="map"></div>
+    <!-- Основной контент -->
+    <div class="content">
+        <section class="main-content">
+            <h2>Добро пожаловать на сайт транспортной навигации!</h2>
+            <p>Здесь вы найдете информацию о маршрутах, расписаниях и станциях общественного транспорта.</p>
+            <p>Выберите пункт меню, чтобы узнать больше.</p>
+        </section>
 
-    <!-- Панель для информации о маршрутах -->
-    <div id="route-info">
-        <h2>Информация о маршруте</h2>
-        <p>Выберите остановку, чтобы увидеть доступные маршруты.</p>
+        <!-- Боковая панель -->
+        <aside class="sidebar">
+            <h3>Популярные направления</h3>
+            <ul>
+                <li><a href="#">Маршрут 1: Центр - Парк</a></li>
+                <li><a href="#">Маршрут 2: Северный - Юг</a></li>
+                <li><a href="#">Маршрут 3: Восток - Запад</a></li>
+                <li><a href="#">Маршрут 4: Аэропорт - Город</a></li>
+            </ul>
+        </aside>
     </div>
 
-    <script src="app.js"></script>
+    <!-- Футер -->
+    <footer>
+        <p>&copy; 2024 Транспортная навигация. Все права защищены.</p>
+    </footer>
 </body>
 </html>
+
