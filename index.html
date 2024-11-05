@@ -3,32 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transport Navigation Map</title>
-    <link href="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css" rel="stylesheet">
+    <title>Transport Navigation Map - Таджикистан</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <style>
-        /* Настройки карты */
+        /* Настройки стилей для карты */
         #map {
             width: 100%;
-            height: 500px;
+            height: 500px; /* Высота карты */
         }
     </style>
 </head>
 <body>
-    <h1>Транспортная Навигация</h1>
-    <div id="map"></div>
+    <h1>Карта Таджикистана</h1>
+    <div id="map"></div> <!-- Контейнер для карты -->
 
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
-        // Ваш API-ключ Mapbox
-        mapboxgl.accessToken = 'ВАШ_API_КЛЮЧ_ЗДЕСЬ';
+        // Создание карты и установка начального вида на Таджикистан
+        const map = L.map('map').setView([38.861, 71.2761], 7); // Координаты центра Таджикистана
 
-        // Настройка карты
-        const map = new mapboxgl.Map({
-            container: 'map', // id контейнера, в который добавится карта
-            style: 'mapbox://styles/mapbox/streets-v11', // стиль карты
-            center: [38.861, 71.2761], // координаты центра (Москва)
-            zoom: 10 // уровень приближения
-        });
+        // Добавление слоя карты OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19, // Максимальный уровень приближения
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
     </script>
 </body>
 </html>
