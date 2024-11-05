@@ -20,45 +20,11 @@
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
         // Создание карты и настройка начальных координат
-        const map = L.map('map').setView([55.7558, 37.6173], 10); // Москва
+        const map = L.map('map').setView([38.861, 71.2761], 7); // Москва
 
         // Добавление карты OpenStreetMap
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-    </script>
-</body>
-</html>
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transport Navigation Map - Таджикистан</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <style>
-        /* Настройки стилей для карты */
-        #map {
-            width: 100%;
-            height: 500px; /* Высота карты */
-        }
-    </style>
-</head>
-<body>
-    <h1>Карта Таджикистана</h1>
-    <div id="map"></div> <!-- Контейнер для карты -->
-
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script>
-        // Создание карты и установка начального вида на Таджикистан
-        const map = L.map('map').setView([38.861, 71.2761], 7); // Координаты центра Таджикистана
-
-        // Добавление слоя карты OpenStreetMap
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19, // Максимальный уровень приближения
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
     </script>
