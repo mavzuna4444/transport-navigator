@@ -4,65 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Транспортная навигация</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
+    <!-- Подключаем библиотеку Mapbox -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.css" rel="stylesheet">
 </head>
 <body>
-    <!-- Шапка сайта -->
     <header>
-        <div class="header-content">
-            <h1>Транспортная навигация</h1>
-            <nav>
-                <ul>
-                    <li><a href="#home">Главная</a></li>
-                    <li><a href="#routes">Маршруты</a></li>
-                    <li><a href="#stations">Станции</a></li>
-                    <li><a href="#contact">Контакты</a></li>
-                </ul>
-            </nav>
-        </div>
+        <h1>Транспортная навигация</h1>
     </header>
 
-    <!-- Основной контент -->
-    <div class="content">
-        <section class="main-content">
-            <h2>Добро пожаловать!</h2>
-            <p>На этом сайте вы сможете найти нужные маршруты и станции.</p>
-            <p>Откройте карту и выберите интересующий вас маршрут.</p>
+    <div id="map"></div>
 
-            <!-- Интеграция карты -->
-            <div id="map"></div>
-        </section>
-
-        <!-- Боковая панель -->
-        <aside class="sidebar">
-            <h3>Популярные направления</h3>
-            <ul>
-                <li><a href="#">Маршрут 1: Центр - Парк</a></li>
-                <li><a href="#">Маршрут 2: Северный - Юг</a></li>
-                <li><a href="#">Маршрут 3: Восток - Запад</a></li>
-                <li><a href="#">Маршрут 4: Аэропорт - Город</a></li>
-            </ul>
-        </aside>
+    <!-- Панель для информации о маршрутах -->
+    <div id="route-info">
+        <h2>Информация о маршруте</h2>
+        <p>Выберите остановку, чтобы увидеть доступные маршруты.</p>
     </div>
 
-    <!-- Футер -->
-    <footer>
-        <p>&copy; 2024 Транспортная навигация. Все права защищены.</p>
-    </footer>
-
-    <!-- Подключение карты OpenStreetMap -->
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script>
-        // Инициализация карты
-        var map = L.map('map').setView([55.751244, 37.618423], 12); // Москва, центр
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-        }).addTo(map);
-
-        // Добавить маркер для примера
-        L.marker([55.751244, 37.618423]).addTo(map)
-            .bindPopup('Москва, Красная площадь')
-            .openPopup();
-    </script>
+    <script src="app.js"></script>
 </body>
 </html>
