@@ -22,18 +22,19 @@
 
     <div class="controls">
         <label for="start">Откуда:</label>
-        <input type="text" id="start" placeholder="Введите начальную точку">
+        <input type="text" id="start" placeholder="Введите название начальной точки">
         <label for="end">Куда:</label>
-        <input type="text" id="end" placeholder="Введите конечную точку">
+        <input type="text" id="end" placeholder="Введите название конечной точки">
         <button onclick="findRoute()">Показать маршрут</button>
     </div>
 
     <div id="map"></div>
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
     <script>
         // Инициализация карты
-        const map = L.map('map').setView([38.861, 71.2761], 7); // Таджикистан
+        const map = L.map('map').setView([38.861, 71.2761], 7); // Центр Таджикистана
 
         // Добавление слоя карты от OpenStreetMap
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -55,13 +56,52 @@
             marker.bindPopup(`<b>${place.name}</b><br>${place.type}`);
         });
 
-        // Функция для поиска маршрута (упрощенная)
-        function findRoute() {
-            const start = document.getElementById("start").value;
-            const end = document.getElementById("end").value;
-            alert(`Маршрут от ${start} до ${end} еще не реализован, но это место для подключения маршрутизации.`);
-            // Здесь можно будет подключить API для маршрутизации, если оно доступно
+        // Инициализация маршрутизатора
+        let routingControl;
+
+        // Функция для геокодирования через Nominatim API
+        async function geocode(query) {
+            const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`);
+            const data = await response.json();
+            if (data.length === 0) {
+                throw new Error(`Место "${query}" не найдено`);
+            }
+            return [parseFloat(data[0].lat), parseFloat(data[0].lon)];
+        }
+
+        async function findRoute() {
+            const startInput = document.getElementById("start").value;
+            const endInput = document.getElementById("end").value;
+
+            if (!startInput || !endInput) {
+                alert("Введите названия начальной и конечной точки.");
+                return;
+            }
+
+            try {
+                // Геокодирование начальной и конечной точек
+                const startCoords = await geocode(startInput);
+                const endCoords = await geocode(endInput);
+
+                // Удаляем старый маршрут, если он есть
+                if (routingControl) {
+                    map.removeControl(routingControl);
+                }
+
+                // Создаем новый маршрут
+                routingControl = L.Routing.control({
+                    waypoints: [
+                        L.latLng(startCoords[0], startCoords[1]),
+                        L.latLng(endCoords[0], endCoords[1])
+                    ],
+                    routeWhileDragging: true,
+                    geocoder: L.Control.Geocoder.nominatim()
+                }).addTo(map);
+            } catch (error) {
+                alert(error.message);
+            }
         }
     </script>
 </body>
 </html>
+
